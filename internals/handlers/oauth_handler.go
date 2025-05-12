@@ -121,7 +121,7 @@ func (ah *AppHandler) GoogleCallBack(c *fiber.Ctx) error {
 	}
 
 	// Create new user and store refresh token
-	user := m.User{FullName: name, Email: email, RefreshTokenoh: &refreshToken}
+	user := m.Users{FullName: name, Email: email, RefreshTokenoh: &refreshToken}
 	result := ah.DB.Create(&user)
 	if result.Error != nil {
 		return c.Status(http.StatusInternalServerError).JSON(

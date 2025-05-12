@@ -8,8 +8,8 @@ import (
 	"gorm.io/gorm"
 )
 
-func FindUserByEmail(email string, db *gorm.DB) (*m.User, error) {
-	var user m.User
+func FindUserByEmail(email string, db *gorm.DB) (*m.Users, error) {
+	var user m.Users
 
 	result := db.Where("email = ?", email).First(&user)
 	if result.Error != nil {
@@ -24,7 +24,7 @@ func FindUserByEmail(email string, db *gorm.DB) (*m.User, error) {
 
 func UserExistByEmail(email string, db *gorm.DB) (bool, error) {
 	var count int64
-	err := db.Model(&m.User{}).Where("email = ?", email).Count(&count).Error
+	err := db.Model(&m.Users{}).Where("email = ?", email).Count(&count).Error
 	if err != nil {
 		return false, fmt.Errorf("couldnt check user with email '%s' error: %w", email, err)
 	}

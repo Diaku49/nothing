@@ -4,7 +4,7 @@ import (
 	"gorm.io/gorm"
 )
 
-type User struct {
+type Users struct {
 	gorm.Model
 	Email          string  `gorm:"uniqueIndex;not null;size:255"`
 	FullName       string  `gorm:"size:255"`
