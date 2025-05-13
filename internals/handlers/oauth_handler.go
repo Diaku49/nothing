@@ -81,7 +81,6 @@ func (ah *AppHandler) GoogleCallBack(c *fiber.Ctx) error {
 	}
 
 	// Extract user info
-	googleUserID := validatedGoogleToken.Subject
 	email := validatedGoogleToken.Claims["email"].(string)
 	name := validatedGoogleToken.Claims["name"].(string)
 
@@ -106,9 +105,7 @@ func (ah *AppHandler) GoogleCallBack(c *fiber.Ctx) error {
 	}
 
 	// Generate RefreshToken
-	refreshTokenClaims := jwt.RefreshTokenClaims{
-		GoogleID: googleUserID,
-	}
+	refreshTokenClaims := jwt.RefreshTokenClaims{}
 	refreshToken, err := jwt.CreateRefreshToken(refreshTokenClaims)
 	if err != nil {
 		fmt.Println("This user already exist")
@@ -133,9 +130,8 @@ func (ah *AppHandler) GoogleCallBack(c *fiber.Ctx) error {
 	}
 
 	accessTokenClaims := jwt.AccessTokenClaims{
-		ID:       user.ID,
-		Email:    email,
-		GoogleID: googleUserID,
+		ID:    user.ID,
+		Email: email,
 	}
 	accessToken, err := jwt.CreateAccessToken(accessTokenClaims)
 	if err != nil {
