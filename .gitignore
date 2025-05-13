@@ -12,6 +12,9 @@
 # Dependency directory (if you ever run 'go mod vendor')
 /vendor/
 
+# Text files
+*.txt
+
 # Environment variables file - VERY IMPORTANT to ignore
 .env
 *.env
